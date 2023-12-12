@@ -5,7 +5,7 @@ import HomePage from './HomePage'
 import EmailGenInterface from './EmailGenInterface'
 import theme from './theme'
 
-function App() {
+function App(): JSX.Element {
 
   return (
     <>

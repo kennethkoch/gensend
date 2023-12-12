@@ -59,13 +59,13 @@ const EmailGenInterface = () => {
         }
     }, [])
 
-    const handleSenderNameChange = (event) => {
+    const handleSenderNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSenderName(event.target.value);
     };
-    const handleRecipientNameChange = (event) => {
+    const handleRecipientNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRecipientName(event.target.value);
     };
-    const handleEmailChange = (event) => {
+    const handleEmailChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setEmailSubject(event.target.value);
     }
     const handleReset = () => {

@@ -12,7 +12,13 @@ import {
     Button,
 } from "@chakra-ui/react"
 
-const EmailModal = ({ isOpen, onClose }) => {
+interface EmailModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    // Add more props and their types if necessary
+}
+
+const EmailModal: React.FC<EmailModalProps> = ({ isOpen, onClose }) => {
 
     const emailBody = 'test email body'
 
