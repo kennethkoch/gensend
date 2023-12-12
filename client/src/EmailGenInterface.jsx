@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import EmailModal from './EmailModal';
 // import React from 'react';
 import {
     Box,
@@ -11,7 +12,6 @@ import {
     SliderThumb,
     SliderTrack,
     Textarea,
-    useClipboard,
     useDisclosure,
 } from '@chakra-ui/react';
 
@@ -44,6 +44,11 @@ const EmailGenInterface = () => {
         //     onOpen()
         //     setIsGenerating(false)
         // })
+        setTimeout(() => {
+            setIsGenerating(false);
+            setIsModalDisabled(false)
+            onOpen()
+        }, 2000);
     }
 
     useEffect(() => {
@@ -126,7 +131,9 @@ const EmailGenInterface = () => {
             >
                 Generate Email
             </Button>
-            <Button isDisabled={isModalDisabled} onClick={onOpen}>View Results</Button>
+            <Button isDisabled={isModalDisabled} onClick={onOpen}>View Results
+                {<EmailModal isOpen={isOpen} onClose={onClose} />}
+            </Button>
         </Flex>
         <Button onClick={handleReset}>Reset</Button>
     </div>)
