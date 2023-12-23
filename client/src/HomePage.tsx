@@ -1,6 +1,8 @@
+import { Heading } from '@chakra-ui/react';
+
 const HomePage = () => {
     return (<div>
-        <p>Home Page</p>
+        <Heading color="teal.300">GenSend</Heading>
     </div>)
 }
 
