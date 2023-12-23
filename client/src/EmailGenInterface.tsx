@@ -4,6 +4,7 @@ import EmailModal from './EmailModal';
 import {
     Box,
     Button,
+    Container,
     Flex,
     Input,
     Slider,
@@ -11,6 +12,8 @@ import {
     SliderMark,
     SliderThumb,
     SliderTrack,
+    Switch,
+    Text,
     Textarea,
     useDisclosure,
 } from '@chakra-ui/react';
@@ -79,49 +82,67 @@ const EmailGenInterface = () => {
 
 
     return (<div>
+        <Container>
 
-        <Input mt={30} placeholder="Sender's Name"
-            value={senderName} onChange={handleSenderNameChange}
-            _placeholder={{ opacity: 1, color: 'gray.500' }} />
-        <Input mt={30} placeholder="Recipient's Name"
-            value={recipientName} onChange={handleRecipientNameChange}
-            _placeholder={{ opacity: 1, color: 'gray.500' }} />
-        <Textarea mb={30} mt={30}
-            placeholder="Email Subject, e.g. 'can't do tuesday meeting'"
-            value={emailSubject}
-            onChange={handleEmailChange} />
+            <Input mt={30} placeholder="Sender's Name"
+                value={senderName} onChange={handleSenderNameChange}
+                _placeholder={{ opacity: 1, color: 'gray.500' }} />
+            <Input mt={30} placeholder="Recipient's Name"
+                value={recipientName} onChange={handleRecipientNameChange}
+                _placeholder={{ opacity: 1, color: 'gray.500' }} />
+            <Textarea mb={30} mt={30}
+                placeholder="Email Subject, e.g. 'can't do tuesday meeting'"
+                sx={{
+                    height: '10vh',
+                    resize: 'vertical',
+                }}
+                value={emailSubject}
+                onChange={handleEmailChange} />
+            <Textarea mb={30}
+                placeholder="Special Instructions (optional), e.g. 'add a holiday greeting, mention basketball, construct email in the form of a haiku', etc."
+                sx={{
+                    height: '10vh',
+                    resize: 'vertical',
+                }}
+                value={emailSubject}
+                onChange={handleEmailChange} />
+            <Flex mb={5} alignItems="center" justifyContent="center">
+                <Text mr="2">Enable Emoji Mode 😎 </Text>
+                <Switch id="experimental-mode" colorScheme="teal" />
+            </Flex>
 
-        <Slider
-            mt={10} defaultValue={5} min={0} max={10} step={1}
-            value={sliderValue}
-            onChange={(val) => setSliderValue(val)}
-        >
-            <SliderMark value={0} mt={5} ml={-2}>
-                Casual
-            </SliderMark>
-            <SliderMark value={5} mt={5} ml={-6}>
-                Formal
-            </SliderMark>
-            <SliderMark value={10} mt={5} ml={-10}>
-                Extremely Formal
-            </SliderMark>
-            <SliderMark
+            <Slider
+                mt={10} defaultValue={5} min={0} max={10} step={1}
                 value={sliderValue}
-                textAlign='center'
-                bg='teal.500'
-                color='white'
-                mt='-10'
-                ml='-6'
-                w='12'
+                onChange={(val) => setSliderValue(val)}
             >
-                {sliderValue}
-            </SliderMark>
-            <SliderTrack bg='teal.100'>
-                <Box position='relative' right={10} />
-                <SliderFilledTrack bg='teal' />
-            </SliderTrack>
-            <SliderThumb boxSize={4} />
-        </Slider>
+                <SliderMark color='teal.100' value={0} mt={5} ml={-2}>
+                    Casual
+                </SliderMark>
+                <SliderMark color='teal.100' value={5} mt={5} ml={-6}>
+                    Formal
+                </SliderMark>
+                <SliderMark color='teal.100' value={10} mt={5} ml={-10}>
+                    Extremely Formal
+                </SliderMark>
+                <SliderMark
+                    value={sliderValue}
+                    textAlign='center'
+                    bg='teal.500'
+                    color='white'
+                    mt='-10'
+                    ml='-6'
+                    w='12'
+                >
+                    {sliderValue}
+                </SliderMark>
+                <SliderTrack bg='teal.100'>
+                    <Box position='relative' right={10} />
+                    <SliderFilledTrack bg='teal' />
+                </SliderTrack>
+                <SliderThumb boxSize={4} />
+            </Slider>
+        </Container>
         <Flex justify='center' align='center' gap='3' mt={45} p={30}>
 
             <Button
