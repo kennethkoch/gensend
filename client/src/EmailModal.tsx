@@ -13,13 +13,14 @@ import {
 interface EmailModalProps {
     isOpen: boolean;
     onClose: () => void;
+    emailBody: string;
     // Add more props and their types if necessary
 }
 
 
-const EmailModal: React.FC<EmailModalProps> = ({ isOpen, onClose }) => {
+const EmailModal: React.FC<EmailModalProps> = ({ isOpen, onClose, emailBody }) => {
 
-    const emailBody = 'test email body'
+    // const emailBody = 'test email body'
 
 
 

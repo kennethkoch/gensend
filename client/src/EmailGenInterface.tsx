@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import EmailModal from './EmailModal';
+import axios from 'axios';
 // import React from 'react';
 import {
     Box,
@@ -24,7 +25,7 @@ const EmailGenInterface = () => {
     const [sliderValue, setSliderValue] = useState(5)
     // const { colorMode, toggleColorMode } = useColorMode()
     const { isOpen, onOpen, onClose } = useDisclosure()
-    // const [emailBody, setEmailBody] = useState('Your email body will appear here');
+    const [emailBody, setEmailBody] = useState('Your email body will appear here');
     // const { hasCopied, onCopy } = useClipboard(emailBody);
     const [isModalDisabled, setIsModalDisabled] = useState(true)
     const [isGenerating, setIsGenerating] = useState(false)
@@ -35,6 +36,10 @@ const EmailGenInterface = () => {
     const handleGenerate = () => {
         setIsModalDisabled(true)
         setIsGenerating(true)
+        axios.get('http://localhost:3000/api').then(res => {
+            setEmailBody(res.data)
+        })
+
         // axios.post(url, {
         //     senderName: senderName,
         //     recipientName: recipientName,
@@ -76,7 +81,7 @@ const EmailGenInterface = () => {
         setRecipientName('')
         setEmailSubject('')
         setSliderValue(5)
-        // setEmailBody('Your email body will appear here')
+        setEmailBody('Your email body will appear here')
         setIsModalDisabled(true)
     }
 
@@ -153,7 +158,7 @@ const EmailGenInterface = () => {
                 Generate Email
             </Button>
             <Button isDisabled={isModalDisabled} onClick={onOpen}>View Results
-                {<EmailModal isOpen={isOpen} onClose={onClose} />}
+                {<EmailModal emailBody={emailBody} isOpen={isOpen} onClose={onClose} />}
             </Button>
         </Flex>
         <Button onClick={handleReset}>Reset</Button>
