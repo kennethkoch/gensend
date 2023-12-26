@@ -1,6 +1,3 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-
 import {
     Modal,
     ModalOverlay,
@@ -19,9 +16,6 @@ interface EmailModalProps {
     // Add more props and their types if necessary
 }
 
-interface Data {
-    response: string;
-}
 
 const EmailModal: React.FC<EmailModalProps> = ({ isOpen, onClose }) => {
 
