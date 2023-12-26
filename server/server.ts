@@ -9,10 +9,8 @@ const port = process.env.PORT || 3000;
 
 const buildPath = path.resolve('../client', 'dist')
 app.use(express.static(buildPath));
-console.log(buildPath)
 
 app.get('/', (req, res) => {
-    console.log("this is the buildpath:" + buildPath)
     res.sendFile(path.resolve(buildPath, 'index.html'));
 });
 
