@@ -32,10 +32,13 @@ const EmailGenInterface = () => {
     const [senderName, setSenderName] = useState('')
     const [recipientName, setRecipientName] = useState('')
     const [emailSubject, setEmailSubject] = useState('')
+    const [instructions, setInstructions] = useState('')
+    const [emojiMode, setEmojiMode] = useState<boolean>(false);
 
     const handleGenerate = () => {
         setIsModalDisabled(true)
         setIsGenerating(true)
+        console.log(emojiMode)
         axios.get('http://localhost:3000/api').then(res => {
             setEmailBody(res.data)
         })
@@ -76,13 +79,23 @@ const EmailGenInterface = () => {
     const handleEmailChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setEmailSubject(event.target.value);
     }
+    const handleInstructionsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setInstructions(event.target.value);
+    }
+
+    const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmojiMode(event.target.checked);
+    }
+
     const handleReset = () => {
         setSenderName('')
         setRecipientName('')
         setEmailSubject('')
+        setInstructions('')
         setSliderValue(5)
         setEmailBody('Your email body will appear here')
         setIsModalDisabled(true)
+        setEmojiMode(false)
     }
 
 
@@ -109,11 +122,15 @@ const EmailGenInterface = () => {
                     height: '10vh',
                     resize: 'vertical',
                 }}
-                value={emailSubject}
-                onChange={handleEmailChange} />
+                value={instructions}
+                onChange={handleInstructionsChange} />
             <Flex mb={5} alignItems="center" justifyContent="center">
                 <Text mr="2">Enable Emoji Mode 😎 </Text>
-                <Switch id="experimental-mode" colorScheme="teal" />
+                <Switch
+                    id="experimental-mode"
+                    colorScheme="teal"
+                    isChecked={emojiMode}
+                    onChange={handleSwitchChange} />
             </Flex>
 
             <Slider
