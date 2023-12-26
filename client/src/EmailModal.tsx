@@ -1,4 +1,5 @@
-// import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import {
     Modal,
@@ -16,6 +17,10 @@ interface EmailModalProps {
     isOpen: boolean;
     onClose: () => void;
     // Add more props and their types if necessary
+}
+
+interface Data {
+    response: string;
 }
 
 const EmailModal: React.FC<EmailModalProps> = ({ isOpen, onClose }) => {
