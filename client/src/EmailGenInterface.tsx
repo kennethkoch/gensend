@@ -35,31 +35,31 @@ const EmailGenInterface = () => {
     const [instructions, setInstructions] = useState('')
     const [emojiMode, setEmojiMode] = useState<boolean>(false);
 
+    const url = "http://localhost:3000/api/generate"
+
     const handleGenerate = () => {
         setIsModalDisabled(true)
         setIsGenerating(true)
-        console.log(emojiMode)
-        axios.get('http://localhost:3000/api').then(res => {
-            setEmailBody(res.data)
-        })
 
-        // axios.post(url, {
-        //     senderName: senderName,
-        //     recipientName: recipientName,
-        //     subject: emailSubject,
-        //     sliderValue: sliderValue,
-        // }).then(res => {
-        //     console.log(res.data)
-        //     setEmailBody(res.data)
-        //     setIsModalDisabled(false)
-        //     onOpen()
-        //     setIsGenerating(false)
-        // })
-        setTimeout(() => {
+        axios.post(url, {
+            senderName: senderName,
+            recipientName: recipientName,
+            subject: emailSubject,
+            instructions: instructions,
+            sliderValue: sliderValue,
+            emojiMode: emojiMode,
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true, // Include cookies in the request
+        }).then((res) => {
+            console.log(res.data)
             setIsGenerating(false);
             setIsModalDisabled(false)
             onOpen()
-        }, 2000);
+        })
+
     }
 
     useEffect(() => {
@@ -183,6 +183,3 @@ const EmailGenInterface = () => {
 }
 
 export default EmailGenInterface
-
-
-
