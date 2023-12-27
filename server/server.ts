@@ -4,7 +4,16 @@ import cors from 'cors';
 import path from 'path';
 
 const app = express();
-app.use(cors())
+
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Allow cookies, authorization headers, etc.
+};
+
+// app.use(cors())
+app.use(bodyParser.json())
+app.use(cors(corsOptions));
 const port = process.env.PORT || 3000;
 
 const buildPath = path.resolve('../client', 'dist')
@@ -18,8 +27,17 @@ app.get('/api', (req, res) => {
     res.send('hello from the api!')
 })
 
+interface OpenAIRequest {
+    senderName: string;
+    recipientName: string;
+    subject: string;
+    instructions: string;
+    sliderValue: number;
+    emojiMode: boolean;
+}
+
 app.post('/api/generate', async (req, res) => {
-    const openaiRequest = {
+    const openaiRequest: OpenAIRequest = {
         senderName: req.body.senderName,
         recipientName: req.body.recipientName,
         subject: req.body.subject,
@@ -38,7 +56,8 @@ app.post('/api/generate', async (req, res) => {
         //     formality of ${openaiRequest.sliderValue}. Do not include the subject line in the generated email.`
         //     }],
         // })
-        res.send("request received:" + openaiRequest)
+        console.log(openaiRequest)
+        res.send(openaiRequest)
         // res.send(completion.data.choices[0].message.content);
     } catch (err) {
         console.log(err);
