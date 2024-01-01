@@ -11,6 +11,7 @@
   "author": "Kenneth Koch",
   "license": "ISC",
   "dependencies": {
+    "@types/dotenv": "^8.2.0",
     "axios": "^1.6.2",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
