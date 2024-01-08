@@ -4,13 +4,15 @@ import { ChakraProvider } from '@chakra-ui/react'
 import HomePage from './HomePage'
 import EmailGenInterface from './EmailGenInterface'
 import theme from './theme'
+import Navbar from './Navbar'
 
 function App(): JSX.Element {
 
   return (
     <>
       <ChakraProvider theme={theme}>
-        <HomePage />
+        <Navbar />
+        {/* <HomePage /> */}
         <EmailGenInterface />
       </ChakraProvider>
     </>
