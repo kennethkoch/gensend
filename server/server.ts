@@ -73,10 +73,11 @@ app.post('/api/generate', async (req, res) => {
         })
         console.log(openaiRequest)
 
-        console.log(completion)
-        // res.send(completion.data.choices[0].message.content);
+        console.log(completion.choices[0].message.content)
+        res.send(completion.choices[0].message.content);
     } catch (err) {
         console.log(err);
+        res.send(err)
     }
 });
 
