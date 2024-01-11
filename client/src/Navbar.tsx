@@ -11,6 +11,8 @@ import {
     InputLeftElement,
     InputRightElement,
     IconButton,
+    Text,
+    ButtonGroup,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
@@ -20,16 +22,17 @@ const Navbar: React.FC = () => {
     const [showKey, setShowKey] = useState(false);
     const [key, setKey] = useState('');
 
-    const handleKeyVisibility = () => {
-        setShowKey(!showKey);
-    };
+    const [remainingUses, setRemainingUses] = useState(3);
+    const [loggedIn, setLoggedIn] = useState(false);
+    const [currentUserName, setCurrentUserName] = useState('test')
 
-    const handleSubmit = () => {
-        console.log('Submitted API Key:', key);
-    };
+
+
 
     return (
         <Flex
+            alignItems='center'
+            width='2xl'
             as="nav"
             align="center"
             justify="space-between"
@@ -41,46 +44,44 @@ const Navbar: React.FC = () => {
             </Flex>
 
             <Spacer />
+            {loggedIn ? (
+                <>
+                    <Text fontSize='lg'>{`Welcome back, ${currentUserName}!`}</Text>
+                    <Spacer />
+                    <Button>
+                        My Account
+                    </Button>
+                </>
+            ) : (
+                <>
 
-            <Box>
-                <Flex align="center">
-                    <InputGroup width="20rem">
 
-                        <InputLeftElement >
-                            <IconButton
-                                h="1.75rem"
-                                size="sm"
-                                onClick={handleKeyVisibility}
-                                aria-label={showKey ? 'Hide password' : 'Show password'}
-                                icon={showKey ? <ViewOffIcon /> : <ViewIcon />}
-                            />
-                        </InputLeftElement>
-                        <Input
-                            type={showKey ? 'text' : 'password'}
-                            placeholder="Enter an OpenAI API Key"
-                            value={key}
-                            onChange={(e) => setKey(e.target.value)}
-                            _placeholder={{ opacity: 1, color: 'gray.500' }}
-                        />
-                        <InputRightElement width="4.5rem">
-                            <Button ml="2" onClick={handleSubmit}>
-                                Submit
-                            </Button>
-                        </InputRightElement>
-                    </InputGroup>
-                </Flex>
-            </Box>
+                    <Text mr={3} color='gray' fontSize='lg'>{`${remainingUses} free uses remaining`}</Text>
+                    <Spacer />
+                    <ButtonGroup>
+
+                        <Button colorScheme="teal" mr={2}>
+                            Login
+                        </Button>
+                        <Button colorScheme="teal" mr={2}>
+                            Sign Up
+                        </Button>
+
+                    </ButtonGroup>
+
+                </>
+            )}
 
             <Spacer />
 
-            <Box>
+            <Box display='flex'>
                 <IconButton
                     aria-label="Toggle dark mode"
                     icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                     onClick={toggleColorMode}
                 />
             </Box>
-        </Flex>
+        </Flex >
     );
 };
 
