@@ -1,5 +1,3 @@
-// import { useEffect, useState } from 'react';
-
 import {
     Modal,
     ModalOverlay,
@@ -15,14 +13,11 @@ import {
 interface EmailModalProps {
     isOpen: boolean;
     onClose: () => void;
-    // Add more props and their types if necessary
+    emailBody: string;
 }
 
-const EmailModal: React.FC<EmailModalProps> = ({ isOpen, onClose }) => {
 
-    const emailBody = 'test email body'
-
-
+const EmailModal: React.FC<EmailModalProps> = ({ isOpen, onClose, emailBody }) => {
 
     return (
         <Modal size="xl" closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>

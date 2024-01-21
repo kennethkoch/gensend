@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import EmailModal from './EmailModal';
+import axios from 'axios';
 // import React from 'react';
 import {
     Box,
@@ -24,34 +25,42 @@ const EmailGenInterface = () => {
     const [sliderValue, setSliderValue] = useState(5)
     // const { colorMode, toggleColorMode } = useColorMode()
     const { isOpen, onOpen, onClose } = useDisclosure()
-    // const [emailBody, setEmailBody] = useState('Your email body will appear here');
+    const [emailBody, setEmailBody] = useState('Your email body will appear here');
     // const { hasCopied, onCopy } = useClipboard(emailBody);
     const [isModalDisabled, setIsModalDisabled] = useState(true)
     const [isGenerating, setIsGenerating] = useState(false)
     const [senderName, setSenderName] = useState('')
     const [recipientName, setRecipientName] = useState('')
     const [emailSubject, setEmailSubject] = useState('')
+    const [instructions, setInstructions] = useState('')
+    const [emojiMode, setEmojiMode] = useState<boolean>(false);
+
+    const url = "http://localhost:3000/api/generate"
 
     const handleGenerate = () => {
         setIsModalDisabled(true)
         setIsGenerating(true)
-        // axios.post(url, {
-        //     senderName: senderName,
-        //     recipientName: recipientName,
-        //     subject: emailSubject,
-        //     sliderValue: sliderValue,
-        // }).then(res => {
-        //     console.log(res.data)
-        //     setEmailBody(res.data)
-        //     setIsModalDisabled(false)
-        //     onOpen()
-        //     setIsGenerating(false)
-        // })
-        setTimeout(() => {
+
+        axios.post(url, {
+            senderName: senderName,
+            recipientName: recipientName,
+            subject: emailSubject,
+            instructions: instructions,
+            sliderValue: sliderValue,
+            emojiMode: emojiMode,
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true, // Include cookies in the request
+        }).then((res) => {
+            console.log(res.data)
+            setEmailBody(res.data)
             setIsGenerating(false);
             setIsModalDisabled(false)
             onOpen()
-        }, 2000);
+        })
+
     }
 
     useEffect(() => {
@@ -71,13 +80,23 @@ const EmailGenInterface = () => {
     const handleEmailChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setEmailSubject(event.target.value);
     }
+    const handleInstructionsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setInstructions(event.target.value);
+    }
+
+    const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmojiMode(event.target.checked);
+    }
+
     const handleReset = () => {
         setSenderName('')
         setRecipientName('')
         setEmailSubject('')
+        setInstructions('')
         setSliderValue(5)
-        // setEmailBody('Your email body will appear here')
+        setEmailBody('Your email body will appear here')
         setIsModalDisabled(true)
+        setEmojiMode(false)
     }
 
 
@@ -104,11 +123,15 @@ const EmailGenInterface = () => {
                     height: '10vh',
                     resize: 'vertical',
                 }}
-                value={emailSubject}
-                onChange={handleEmailChange} />
+                value={instructions}
+                onChange={handleInstructionsChange} />
             <Flex mb={5} alignItems="center" justifyContent="center">
                 <Text mr="2">Enable Emoji Mode 😎 </Text>
-                <Switch id="experimental-mode" colorScheme="teal" />
+                <Switch
+                    id="experimental-mode"
+                    colorScheme="teal"
+                    isChecked={emojiMode}
+                    onChange={handleSwitchChange} />
             </Flex>
 
             <Slider
@@ -153,7 +176,7 @@ const EmailGenInterface = () => {
                 Generate Email
             </Button>
             <Button isDisabled={isModalDisabled} onClick={onOpen}>View Results
-                {<EmailModal isOpen={isOpen} onClose={onClose} />}
+                {<EmailModal emailBody={emailBody} isOpen={isOpen} onClose={onClose} />}
             </Button>
         </Flex>
         <Button onClick={handleReset}>Reset</Button>
@@ -161,6 +184,3 @@ const EmailGenInterface = () => {
 }
 
 export default EmailGenInterface
-
-
-
