@@ -55,6 +55,7 @@ const EmailGenInterface = () => {
             withCredentials: true, // Include cookies in the request
         }).then((res) => {
             console.log(res.data)
+            setEmailBody(res.data)
             setIsGenerating(false);
             setIsModalDisabled(false)
             onOpen()
