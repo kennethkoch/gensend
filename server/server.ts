@@ -26,9 +26,6 @@ const apiKey = process.env.API_KEY;
 const buildPath = path.resolve('../client', 'dist')
 app.use(express.static(buildPath));
 
-// const configuration = new Configuration({
-//     apiKey: apiKey,
-// });
 const openai = new OpenAI({
     apiKey: apiKey,
 });
@@ -59,21 +56,27 @@ app.post('/api/generate', async (req, res) => {
         sliderValue: req.body.sliderValue,
         emojiMode: req.body.emojiMode,
     }
+
+    const baseRequest = `please write an email from ${openaiRequest.senderName} to ${openaiRequest.recipientName} about 
+    ${openaiRequest.subject}. On a scale of 0 to 10, where 0 is extremely 
+    casual, 5 is somewhat formal, and 10 is extremely formal, please write this email with a 
+    formality of ${openaiRequest.sliderValue}. Do not include the subject line in the generated email.`
+
+    const emojiMode = openaiRequest.emojiMode ? ` please use lots of emojis in the email.` : ""
+
+    const specialInstructions = openaiRequest.instructions ? ` when composing the email, please pay attention to the following
+    instructions: ${openaiRequest.instructions}` : ""
+
+    const completeRequest = baseRequest + specialInstructions + emojiMode
+
     try {
         const completion = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [{
                 role: "user",
-                content: 'please say hello'
-                //     content: `please write an email from ${openaiRequest.senderName} to ${openaiRequest.recipientName} about 
-                // ${openaiRequest.subject}. On a scale of 0 to 10, where 0 is extremely 
-                // casual, 5 is somewhat formal, and 10 is extremely formal, please write this email with a 
-                // formality of ${openaiRequest.sliderValue}. Do not include the subject line in the generated email.`
+                content: completeRequest
             }],
         })
-        console.log(openaiRequest)
-
-        console.log(completion.choices[0].message.content)
         res.send(completion.choices[0].message.content);
     } catch (err) {
         console.log(err);
