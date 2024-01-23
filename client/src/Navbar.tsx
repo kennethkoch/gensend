@@ -18,14 +18,13 @@ import { MoonIcon, SunIcon, HamburgerIcon } from '@chakra-ui/icons';
 
 const Navbar: React.FC = () => {
     const { colorMode, toggleColorMode } = useColorMode();
-
-    const [remainingUses, setRemainingUses] = useState(3);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [currentUserName, setCurrentUserName] = useState('test');
+    const [currentUserName, setCurrentUserName] = useState('');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const handleLogin = () => {
         setLoggedIn(true);
+        setCurrentUserName('test user')
     }
 
     const handleAccountToggle = () => {
@@ -68,7 +67,6 @@ const Navbar: React.FC = () => {
                 <>
 
                     <Spacer />
-                    <Text color='gray' fontSize='lg'>{`${remainingUses} free uses remaining`}</Text>
                     <Spacer />
                     <ButtonGroup>
 
