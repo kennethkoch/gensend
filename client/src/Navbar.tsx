@@ -1,16 +1,13 @@
 
 import {
-    Box,
     Flex,
     Heading,
     Spacer,
-    Button,
     useColorMode,
     IconButton,
     Text,
-    ButtonGroup,
 } from '@chakra-ui/react';
-import { MoonIcon, SunIcon, HamburgerIcon } from '@chakra-ui/icons';
+import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 const Navbar: React.FC = () => {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -20,7 +17,6 @@ const Navbar: React.FC = () => {
         <Flex
             alignItems='center'
             width='100%'
-            // flexGrow={1}
             top={0}
             p={4}
             zIndex={100}
