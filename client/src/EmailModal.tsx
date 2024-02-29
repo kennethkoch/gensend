@@ -8,6 +8,7 @@ import {
     ModalFooter,
     Textarea,
     Button,
+    useClipboard
 } from "@chakra-ui/react"
 
 interface EmailModalProps {
@@ -18,6 +19,8 @@ interface EmailModalProps {
 
 
 const EmailModal: React.FC<EmailModalProps> = ({ isOpen, onClose, emailBody }) => {
+    const { hasCopied, onCopy } = useClipboard(emailBody);
+
 
     return (
         <Modal size="xl" closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
@@ -29,11 +32,8 @@ const EmailModal: React.FC<EmailModalProps> = ({ isOpen, onClose, emailBody }) =
                     <Textarea minH="50vh" defaultValue={emailBody}></Textarea>
                 </ModalBody>
                 <ModalFooter>
-                    {/* <Button variant='solid' mr={3} onClick={onCopy}>
+                    <Button variant='solid' mr={3} onClick={onCopy}>
                         {hasCopied ? 'Copied!' : 'Copy'}
-                    </Button> */}
-                    <Button variant='solid' mr={3}>
-                        {'copy'}
                     </Button>
                     <Button onClick={onClose}>Close</Button>
                 </ModalFooter>
