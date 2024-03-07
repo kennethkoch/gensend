@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import EmailModal from './EmailModal';
 import axios from 'axios';
-// import React from 'react';
 import {
     Box,
     Button,
@@ -17,16 +16,16 @@ import {
     Text,
     Textarea,
     useDisclosure,
+    useColorModeValue,
 } from '@chakra-ui/react';
 
 
 const EmailGenInterface = () => {
 
     const [sliderValue, setSliderValue] = useState(5)
-    // const { colorMode, toggleColorMode } = useColorMode()
+
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [emailBody, setEmailBody] = useState('Your email body will appear here');
-    // const { hasCopied, onCopy } = useClipboard(emailBody);
     const [isModalDisabled, setIsModalDisabled] = useState(true)
     const [isGenerating, setIsGenerating] = useState(false)
     const [senderName, setSenderName] = useState('')
@@ -34,6 +33,9 @@ const EmailGenInterface = () => {
     const [emailSubject, setEmailSubject] = useState('')
     const [instructions, setInstructions] = useState('')
     const [emojiMode, setEmojiMode] = useState<boolean>(false);
+
+    const textColor = useColorModeValue('teal.500', 'teal.100')
+
 
     const url = "http://localhost:3000/api/generate"
 
@@ -126,7 +128,7 @@ const EmailGenInterface = () => {
                 value={instructions}
                 onChange={handleInstructionsChange} />
             <Flex mb={5} alignItems="center" justifyContent="center">
-                <Text mr="2">Enable Emoji Mode 😎 </Text>
+                <Text color={textColor} mr="2">Enable Emoji Mode 😎 </Text>
                 <Switch
                     id="experimental-mode"
                     colorScheme="teal"
@@ -139,13 +141,13 @@ const EmailGenInterface = () => {
                 value={sliderValue}
                 onChange={(val) => setSliderValue(val)}
             >
-                <SliderMark color='teal.100' value={0} mt={5} ml={-2}>
+                <SliderMark color={textColor} value={0} mt={5} ml={-2}>
                     Casual
                 </SliderMark>
-                <SliderMark color='teal.100' value={5} mt={5} ml={-6}>
+                <SliderMark color={textColor} value={5} mt={5} ml={-6}>
                     Formal
                 </SliderMark>
-                <SliderMark color='teal.100' value={10} mt={5} ml={-10}>
+                <SliderMark color={textColor} value={10} mt={5} ml={-10}>
                     Extremely Formal
                 </SliderMark>
                 <SliderMark
@@ -159,11 +161,11 @@ const EmailGenInterface = () => {
                 >
                     {sliderValue}
                 </SliderMark>
-                <SliderTrack bg='teal.100'>
+                <SliderTrack bg='teal.200'>
                     <Box position='relative' right={10} />
                     <SliderFilledTrack bg='teal' />
                 </SliderTrack>
-                <SliderThumb boxSize={4} />
+                <SliderThumb bg='teal.500' boxSize={4} />
             </Slider>
         </Container>
         <Flex justify='center' align='center' gap='3' mt={45} p={30}>
@@ -180,7 +182,7 @@ const EmailGenInterface = () => {
             </Button>
         </Flex>
         <Button onClick={handleReset}>Reset</Button>
-    </div>)
+    </div >)
 }
 
 export default EmailGenInterface
