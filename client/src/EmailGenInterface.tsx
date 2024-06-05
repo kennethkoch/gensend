@@ -17,7 +17,9 @@ import {
     Textarea,
     useDisclosure,
     useColorModeValue,
+    Tooltip,
 } from '@chakra-ui/react';
+import { QuestionIcon } from '@chakra-ui/icons';
 
 
 const EmailGenInterface = () => {
@@ -135,6 +137,15 @@ const EmailGenInterface = () => {
                     isChecked={emojiMode}
                     onChange={handleSwitchChange} />
             </Flex>
+            <Flex mb={3} alignItems="center" justifyContent="center">
+                <Text color={textColor} mr="2">
+                    Drag slider to adjust AI slop level <Tooltip
+                        label='"slop" is a term for unwanted AI generated content'>
+                        <QuestionIcon color={textColor} />
+                    </Tooltip>
+                </Text>
+
+            </Flex>
 
             <Slider
                 mt={10} defaultValue={5} min={0} max={10} step={1}
@@ -142,13 +153,13 @@ const EmailGenInterface = () => {
                 onChange={(val) => setSliderValue(val)}
             >
                 <SliderMark color={textColor} value={0} mt={5} ml={-2}>
-                    Casual
+                    None
                 </SliderMark>
                 <SliderMark color={textColor} value={5} mt={5} ml={-6}>
-                    Formal
+                    Excessive
                 </SliderMark>
                 <SliderMark color={textColor} value={10} mt={5} ml={-10}>
-                    Extremely Formal
+                    Unbearable
                 </SliderMark>
                 <SliderMark
                     value={sliderValue}
