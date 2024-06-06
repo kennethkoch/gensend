@@ -114,7 +114,7 @@ const EmailGenInterface = () => {
                 value={recipientName} onChange={handleRecipientNameChange}
                 _placeholder={{ opacity: 1, color: 'gray.500' }} />
             <Textarea mb={30} mt={30}
-                placeholder="Email Subject, e.g. 'can't do tuesday meeting'"
+                placeholder="Message Subject, e.g. 'can't do tuesday meeting'"
                 sx={{
                     height: '10vh',
                     resize: 'vertical',
@@ -122,7 +122,7 @@ const EmailGenInterface = () => {
                 value={emailSubject}
                 onChange={handleEmailChange} />
             <Textarea mb={30}
-                placeholder="Special Instructions (optional), e.g. 'add a holiday greeting, mention basketball, construct email in the form of a haiku', etc."
+                placeholder="Generating a response? You can include the message you're responding to here to give GenSend more context."
                 sx={{
                     height: '10vh',
                     resize: 'vertical',
@@ -139,11 +139,12 @@ const EmailGenInterface = () => {
             </Flex>
             <Flex mb={3} alignItems="center" justifyContent="center">
                 <Text color={textColor} mr="2">
-                    Drag slider to adjust AI slop level <Tooltip
-                        label='"slop" is a term for unwanted AI generated content'>
-                        <QuestionIcon color={textColor} />
-                    </Tooltip>
+                    Drag slider to adjust corpspeak level
                 </Text>
+                <Tooltip
+                    label='"Corpspeak" refers to the the jargon-heavy, often meaningless language used in corporate environments to make routine tasks sound important and impressive.'>
+                    <QuestionIcon color={textColor} />
+                </Tooltip>
 
             </Flex>
 
@@ -152,10 +153,10 @@ const EmailGenInterface = () => {
                 value={sliderValue}
                 onChange={(val) => setSliderValue(val)}
             >
-                <SliderMark color={textColor} value={0} mt={5} ml={-2}>
+                <SliderMark color={textColor} value={0} mt={5} ml={-6}>
                     None
                 </SliderMark>
-                <SliderMark color={textColor} value={5} mt={5} ml={-6}>
+                <SliderMark color={textColor} value={5} mt={5} ml={-9}>
                     Excessive
                 </SliderMark>
                 <SliderMark color={textColor} value={10} mt={5} ml={-10}>
