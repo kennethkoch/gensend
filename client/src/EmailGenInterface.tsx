@@ -17,7 +17,9 @@ import {
     Textarea,
     useDisclosure,
     useColorModeValue,
+    Tooltip,
 } from '@chakra-ui/react';
+import { QuestionIcon } from '@chakra-ui/icons';
 
 
 const EmailGenInterface = () => {
@@ -112,7 +114,7 @@ const EmailGenInterface = () => {
                 value={recipientName} onChange={handleRecipientNameChange}
                 _placeholder={{ opacity: 1, color: 'gray.500' }} />
             <Textarea mb={30} mt={30}
-                placeholder="Email Subject, e.g. 'can't do tuesday meeting'"
+                placeholder="Message Subject, e.g. 'can't do tuesday meeting'"
                 sx={{
                     height: '10vh',
                     resize: 'vertical',
@@ -120,7 +122,7 @@ const EmailGenInterface = () => {
                 value={emailSubject}
                 onChange={handleEmailChange} />
             <Textarea mb={30}
-                placeholder="Special Instructions (optional), e.g. 'add a holiday greeting, mention basketball, construct email in the form of a haiku', etc."
+                placeholder="Generating a response? You can include the message you're responding to here to give GenSend more context."
                 sx={{
                     height: '10vh',
                     resize: 'vertical',
@@ -135,20 +137,30 @@ const EmailGenInterface = () => {
                     isChecked={emojiMode}
                     onChange={handleSwitchChange} />
             </Flex>
+            <Flex mb={3} alignItems="center" justifyContent="center">
+                <Text color={textColor} mr="2">
+                    Drag slider to adjust corpspeak level
+                </Text>
+                <Tooltip
+                    label='"Corpspeak" refers to the the buzzword-heavy jargon often used in corporate environments to make routine tasks sound complex and impressive.'>
+                    <QuestionIcon color={textColor} />
+                </Tooltip>
+
+            </Flex>
 
             <Slider
                 mt={10} defaultValue={5} min={0} max={10} step={1}
                 value={sliderValue}
                 onChange={(val) => setSliderValue(val)}
             >
-                <SliderMark color={textColor} value={0} mt={5} ml={-2}>
-                    Casual
+                <SliderMark color={textColor} value={0} mt={5} ml={-6}>
+                    None
                 </SliderMark>
-                <SliderMark color={textColor} value={5} mt={5} ml={-6}>
-                    Formal
+                <SliderMark color={textColor} value={5} mt={5} ml={-9}>
+                    Excessive
                 </SliderMark>
                 <SliderMark color={textColor} value={10} mt={5} ml={-10}>
-                    Extremely Formal
+                    Unbearable
                 </SliderMark>
                 <SliderMark
                     value={sliderValue}
