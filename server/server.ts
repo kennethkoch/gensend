@@ -11,7 +11,6 @@ dotenv.config();
 const app = express();
 
 const origin = process.env.NODE_ENV === 'production' ? 'https://gensend.email' : 'http://localhost:5173'
-console.log(origin)
 
 const corsOptions = {
     origin,
