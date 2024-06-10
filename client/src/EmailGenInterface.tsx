@@ -33,7 +33,7 @@ const EmailGenInterface = () => {
     const [senderName, setSenderName] = useState('')
     const [recipientName, setRecipientName] = useState('')
     const [emailSubject, setEmailSubject] = useState('')
-    const [instructions, setInstructions] = useState('')
+    const [originalMessage, setOriginalMessage] = useState('')
     const [emojiMode, setEmojiMode] = useState<boolean>(false);
 
     const textColor = useColorModeValue('teal.500', 'teal.100')
@@ -49,7 +49,7 @@ const EmailGenInterface = () => {
             senderName: senderName,
             recipientName: recipientName,
             subject: emailSubject,
-            instructions: instructions,
+            originalMessage: originalMessage,
             sliderValue: sliderValue,
             emojiMode: emojiMode,
         }, {
@@ -84,8 +84,8 @@ const EmailGenInterface = () => {
     const handleEmailChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setEmailSubject(event.target.value);
     }
-    const handleInstructionsChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setInstructions(event.target.value);
+    const handleOriginalMessageChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setOriginalMessage(event.target.value);
     }
 
     const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,7 +96,7 @@ const EmailGenInterface = () => {
         setSenderName('')
         setRecipientName('')
         setEmailSubject('')
-        setInstructions('')
+        setOriginalMessage('')
         setSliderValue(5)
         setEmailBody('Your email body will appear here')
         setIsModalDisabled(true)
@@ -127,8 +127,8 @@ const EmailGenInterface = () => {
                     height: '10vh',
                     resize: 'vertical',
                 }}
-                value={instructions}
-                onChange={handleInstructionsChange} />
+                value={originalMessage}
+                onChange={handleoriginalMessageChange} />
             <Flex mb={5} alignItems="center" justifyContent="center">
                 <Text color={textColor} mr="2">Enable Emoji Mode 😎 </Text>
                 <Switch
