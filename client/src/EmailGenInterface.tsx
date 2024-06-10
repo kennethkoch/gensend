@@ -39,7 +39,7 @@ const EmailGenInterface = () => {
     const textColor = useColorModeValue('teal.500', 'teal.100')
 
 
-    const url = "http://localhost:3000/api/generate"
+    const url = import.meta.env.VITE_API_URL
 
     const handleGenerate = () => {
         setIsModalDisabled(true)
