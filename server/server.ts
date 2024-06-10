@@ -42,7 +42,7 @@ interface OpenAIRequest {
     senderName: string;
     recipientName: string;
     subject: string;
-    instructions: string;
+    originalMessage: string;
     sliderValue: number;
     emojiMode: boolean;
 }
@@ -52,7 +52,7 @@ app.post('/api/generate', async (req, res) => {
         senderName: req.body.senderName,
         recipientName: req.body.recipientName,
         subject: req.body.subject,
-        instructions: req.body.instructions,
+        originalMessage: req.body.originalMessage,
         sliderValue: req.body.sliderValue,
         emojiMode: req.body.emojiMode,
     }
@@ -65,11 +65,10 @@ app.post('/api/generate', async (req, res) => {
 
     const emojiMode = openaiRequest.emojiMode ? ` please use lots of emojis in the email.` : ""
 
-    const specialInstructions = openaiRequest.instructions ? ` for added context, the message you are writing
-    is a response to the following message: ${openaiRequest.instructions}` : ""
+    const originalMessage = openaiRequest.originalMessage ? ` for added context, the message you are writing
+    is a response to the following message: ${openaiRequest.originalMessage}` : ""
 
-    const completeRequest = baseRequest + specialInstructions + emojiMode
-
+    const completeRequest = baseRequest + originalMessage + emojiMode
     try {
         const completion = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
