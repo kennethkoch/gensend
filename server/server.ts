@@ -59,13 +59,14 @@ app.post('/api/generate', async (req, res) => {
 
     const baseRequest = `please write an email from ${openaiRequest.senderName} to ${openaiRequest.recipientName} about 
     ${openaiRequest.subject}. On a scale of 0 to 10, where 0 is extremely 
-    casual, 5 is somewhat formal, and 10 is extremely formal, please write this email with a 
-    formality of ${openaiRequest.sliderValue}. Do not include the subject line in the generated email.`
+    casual with no corpspeak or extra jargon, 5 is somewhat formal with excessive corpspeak, and 10 is extremely formal with an obscene
+    amount of corpspeak and unnecessary buzzwords, please write this email with a 
+    corpspeak level of ${openaiRequest.sliderValue}. Do not include the subject line in the generated email.`
 
     const emojiMode = openaiRequest.emojiMode ? ` please use lots of emojis in the email.` : ""
 
-    const specialInstructions = openaiRequest.instructions ? ` when composing the email, please pay attention to the following
-    instructions: ${openaiRequest.instructions}` : ""
+    const specialInstructions = openaiRequest.instructions ? ` for added context, the message you are writing
+    is a response to the following message: ${openaiRequest.instructions}` : ""
 
     const completeRequest = baseRequest + specialInstructions + emojiMode
 
