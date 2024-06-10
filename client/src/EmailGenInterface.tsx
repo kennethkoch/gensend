@@ -142,7 +142,7 @@ const EmailGenInterface = () => {
                     Drag slider to adjust corpspeak level
                 </Text>
                 <Tooltip
-                    label='"Corpspeak" refers to the the jargon-heavy, often meaningless language used in corporate environments to make routine tasks sound important and impressive.'>
+                    label='"Corpspeak" refers to the the buzzword-heavy jargon often used in corporate environments to make routine tasks sound complex and impressive.'>
                     <QuestionIcon color={textColor} />
                 </Tooltip>
 
