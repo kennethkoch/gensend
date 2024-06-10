@@ -128,7 +128,7 @@ const EmailGenInterface = () => {
                     resize: 'vertical',
                 }}
                 value={originalMessage}
-                onChange={handleoriginalMessageChange} />
+                onChange={handleOriginalMessageChange} />
             <Flex mb={5} alignItems="center" justifyContent="center">
                 <Text color={textColor} mr="2">Enable Emoji Mode 😎 </Text>
                 <Switch
